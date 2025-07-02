@@ -1,5 +1,11 @@
 import { useGetBorrowSummaryQuery } from "../features/book/bookApi";
 
+type BorrowSummaryItem = {
+  title: string;
+  isbn: string;
+  totalQuantity: number;
+};
+
 const BorrowSummary = () => {
   const { data, isLoading, error } = useGetBorrowSummaryQuery();
 
@@ -18,7 +24,7 @@ const BorrowSummary = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.map((item: any, index: number) => (
+          {data?.map((item: BorrowSummaryItem, index: number) => (
             <tr key={index}>
               <td className="py-2 px-4 border">{item.title}</td>
               <td className="py-2 px-4 border">{item.isbn}</td>
