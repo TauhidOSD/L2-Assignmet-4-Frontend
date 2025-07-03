@@ -4,20 +4,19 @@ import {
   useGetBookByIdQuery,
   useBorrowBookMutation,
 } from "../features/book/bookApi";
+import toast from "react-hot-toast";  // <-- import করে নিচ্ছি
 
 const BorrowBook = () => {
   const { bookId } = useParams();
   const navigate = useNavigate();
 
-  //  Call all hooks FIRST (always)
-  const { data: book, isLoading } = useGetBookByIdQuery(bookId || ""); // fallback to "" to avoid undefined
+  const { data: book, isLoading } = useGetBookByIdQuery(bookId || "");
   const [borrowBook] = useBorrowBookMutation();
   const [formData, setFormData] = useState({
     quantity: 1,
     dueDate: "",
   });
 
-  //  Return early only AFTER hooks are defined
   if (!bookId) {
     return (
       <p className="text-center text-red-500 mt-10">
@@ -35,15 +34,16 @@ const BorrowBook = () => {
     e.preventDefault();
 
     if (formData.quantity > (book?.copies ?? 0)) {
-      alert("Quantity exceeds available copies!");
+      toast.error("Quantity exceeds available copies!");
       return;
     }
 
     try {
       await borrowBook({ bookId, ...formData }).unwrap();
+      toast.success("Book borrowed successfully! 📚");
       navigate("/borrow-summary");
     } catch (error) {
-      alert("Failed to borrow book.");
+      toast.error("Failed to borrow book.");
       console.error(error);
     }
   };
