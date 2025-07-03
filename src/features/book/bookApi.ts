@@ -32,7 +32,7 @@ export interface BorrowResponse {
 
 export const bookApi = createApi({
   reducerPath: "bookApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://library-backend-virid.vercel.app/api" }),
   tagTypes: ["Book"],
   endpoints: (builder) => ({
     //  GET all books
