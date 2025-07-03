@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar"; 
 import AppRouter from "./routes/AppRouter";
 import { BrowserRouter } from "react-router-dom";
@@ -9,6 +10,7 @@ function App() {
         <Navbar />
         <AppRouter />
       </div>
+      <Footer />
     </BrowserRouter>
   );
 }
